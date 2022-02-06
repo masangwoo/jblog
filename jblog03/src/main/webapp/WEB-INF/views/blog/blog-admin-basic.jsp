@@ -12,7 +12,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>${list.title}</h1>
+			<h1>${blogvo.title}</h1>
 			<ul>
 				<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
 				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
@@ -30,11 +30,11 @@
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
-			      			<td><input type="text" size="40" name="title" value="${list.title}"></td>
+			      			<td><input type="text" size="40" name="title" value="${blogvo.title}"></td>
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고 이미지</td>
-			      			<td><img src="${pageContext.request.contextPath}${list.logo}"></td>      			
+			      			<td><img src="${pageContext.request.contextPath}${blogvo.logo}"></td>      			
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>

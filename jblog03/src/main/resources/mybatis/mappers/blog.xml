@@ -7,7 +7,7 @@
 		<![CDATA[ insert into blog values(#{id}, '${name} 님의 블로그 입니다.', '/images/spring-logo.jpg')]]>
 	</insert>
 	
-	<!-- <select id="findAll" parameterType="map" resultType="blogvo">
+	<select id="findAll" parameterType="map" resultType="blogvo">
 		<![CDATA[
 		select a.user_id as userId, a.title, a.logo, b.no as categoryNo, 
 		b.name as categoryName, b.description, 
@@ -17,10 +17,16 @@
 		c.category_no  and a.user_id=#{id} and b.no=#{category} order by c.reg_date desc
 		]]>
 	</select>
-	 -->
-	 <select id="findAll" parameterType="map" resultType="blogvo">
+	 
+	<!--  <select id="findAll" parameterType="map" resultType="blogvo">
 		<![CDATA[
-		select * from  blog where user_id=#{id}
+		select * from  blog where user_id=#{user_id}
+		]]>
+	</select> -->
+	
+	<select id="select" parameterType="string" resultType="blogvo">
+		<![CDATA[
+		select * from  blog where user_id = #{user_id}
 		]]>
 	</select>
 	
@@ -35,12 +41,12 @@
 	<choose>
 			<when test = "logo == null || '' == logo">
 				<![CDATA[
-					update blog set title = #{title} where  blog_id = #{id} 
+					update blog set title = #{title} where  user_id = #{userId} 
 				]]>
 			</when>
 			<otherwise>
 				<![CDATA[
-					update blog set title = #{title}, logo = #{logo} where  blog_id = #{id}
+					update blog set title = #{title}, logo = #{logo} where  user_id = #{userId}
 				]]>
 			</otherwise>
 		</choose>

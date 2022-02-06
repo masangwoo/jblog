@@ -12,7 +12,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>${list.title}</h1>
+			<h1>${blogvo.title}</h1>
 			<ul>
 				<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
 				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
@@ -29,7 +29,7 @@
 				</div>
 				<ul class="blog-list">
 					<c:forEach items="${blog.list}" var = "vo" varStatus = "status">
-                       <li><a href="${pageContext.request.contextPath}/blog/${vo.userId}/${vo.categoryNo}/${vo.postNo}">${vo.postTitle}</a> <span>${vo.regDate}</span>	</li>
+                       <li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/${vo.categoryNo}/${vo.postNo}">${vo.postTitle}</a> <span>${vo.regDate}</span>	</li>
             		</c:forEach>
 				</ul>
 			</div>
@@ -37,7 +37,7 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				<img src="${pageContext.request.contextPath}${list.logo}">
+				<img src="${pageContext.request.contextPath}${blogvo.logo}">
 			</div>
 		</div>
 

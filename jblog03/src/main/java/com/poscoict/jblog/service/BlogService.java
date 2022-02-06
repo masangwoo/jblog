@@ -21,6 +21,10 @@ public class BlogService {
 		return blogRepository.insert(vo);
 	}
 	
+	public BlogVo Select(String user_id) {
+		return blogRepository.select(user_id);
+	}
+	
 	public Map<String, Object> getBlogList(String id, long category, long post) {
 	      Map<String, Object> map = new HashMap<>();
 	      List<BlogVo> list = null;

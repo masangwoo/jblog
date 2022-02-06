@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +37,9 @@ public class BlogController {
 	private PostService postService;
 	@Autowired
 	private FileUploadService fileUploadService;
+
+	@Autowired
+	private ServletContext context;
 	
 	@RequestMapping("/{id}")
 	   public String main(@PathVariable("id") String id, Model model) {
@@ -45,9 +50,9 @@ public class BlogController {
 		model.addAttribute("blog", map);
 		model.addAttribute("catList",catList);
 		model.addAttribute("postVo", postVo);
-		System.out.println("블로그컨트롤러"+map);
-		System.out.println("블로그컨트롤러"+map);
-
+		System.out.println(map);
+		System.out.println(catList);
+		System.out.println(postVo);
 	      return "/blog/blog-main";
 	   }
 	
@@ -87,11 +92,15 @@ public class BlogController {
 	
 	@RequestMapping(value="/{id}/admin/update", method = RequestMethod.POST)
 	public String mainUpdate(@RequestParam(value="upload-file") MultipartFile multipartFile,
-			BlogVo vo) {
+			@PathVariable("id") String id,
+			BlogVo vo,
+			@AuthUser UserVo uservo) {
 		String url = fileUploadService.restore(multipartFile);	
 		vo.setLogo(url);
+		vo.setUserId(uservo.getId());
 		blogService.update(vo);
-		return "redirect:/admin";
+		context.setAttribute("blogvo", vo);
+		return "redirect:/blog/"+id+"/admin";
 	}
 	
 	

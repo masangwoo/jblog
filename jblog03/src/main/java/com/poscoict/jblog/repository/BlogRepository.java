@@ -43,4 +43,8 @@ public class BlogRepository {
 		return sqlSession.insert("blog.update", vo) == 1;
 	}
 
+	public BlogVo select(String user_id) {
+		return sqlSession.selectOne("blog.select", user_id);
+	}
+
 }
