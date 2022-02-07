@@ -26,9 +26,11 @@
 	
 	<select id="select" parameterType="string" resultType="blogvo">
 		<![CDATA[
-		select * from  blog where user_id = #{user_id}
+		select user_id as userId, title, logo from  blog where user_id = #{user_id}
 		]]>
 	</select>
+	
+	
 	
 		<select id="findCategory" parameterType="map" resultType="blogvo">
 		<![CDATA[

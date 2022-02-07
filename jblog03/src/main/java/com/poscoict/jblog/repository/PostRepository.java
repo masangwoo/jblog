@@ -27,4 +27,9 @@ public class PostRepository {
 		return count==1;
 	}
 
+	public Long getMaxNo(long no) {
+		
+		return sqlSession.selectOne("post.getmaxno", no);
+	}
+
 }

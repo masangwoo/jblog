@@ -25,4 +25,10 @@
 			select name as categoryName, no, blog_id as blogId from category where blog_id=#{id} order by no
 		]]>
 	</select>
+	
+	<select id="getminno" parameterType="string" resultType="long">
+		<![CDATA[
+			 select min(no) from category where blog_id = #{id}
+		]]>
+	</select>
 </mapper>

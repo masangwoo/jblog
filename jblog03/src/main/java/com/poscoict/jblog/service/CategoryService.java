@@ -33,4 +33,9 @@ public class CategoryService {
 		return categoryRepository.findList(id);
 	}
 
+	public Long getMinCategoryNo(String id) {
+		
+		return categoryRepository.getMinNo(id);
+	}
+
 }

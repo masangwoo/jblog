@@ -35,7 +35,7 @@ public class BlogInterceptor extends HandlerInterceptorAdapter {
 			
 			BlogVo blogvo = blogService.Select(user_id);
 			request.setAttribute("blogvo", blogvo);
-				
+				System.out.println(blogvo);
 			Auth auth = handlerMethod.getMethodAnnotation(Auth.class); 
 			if(auth !=null) { 
 				session = request.getSession();

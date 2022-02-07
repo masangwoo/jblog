@@ -42,7 +42,7 @@ public class BlogController {
 	@Autowired
 	private ServletContext context;
 	
-	/*@RequestMapping("/{id}")
+	/*@RequestMapping("")
 	   public String main(@PathVariable("id") String id, Model model) {
 	    Map<String, Object> map = new HashMap<>();
 	    map = blogService.getBlogList(id,1,1);
@@ -51,13 +51,10 @@ public class BlogController {
 		model.addAttribute("blog", map);
 		model.addAttribute("catList",catList);
 		model.addAttribute("postVo", postVo);
-		System.out.println(map);
-		System.out.println(catList);
-		System.out.println(postVo);
 	      return "/blog/blog-main";
 	   }
 	
-	@RequestMapping("/{id}/{categoryNo}")
+	@RequestMapping("/{categoryNo}")
 	   public String main(@PathVariable("id") String id, 
 			   			  @PathVariable("categoryNo") long categoryNo, Model model) {
 	    Map<String, Object> map = new HashMap<>();
@@ -70,7 +67,7 @@ public class BlogController {
 	      return "/blog/blog-main";
 	   }
 	
-	@RequestMapping("/{id}/{categoryNo}/{postNo}")
+	@RequestMapping("/{categoryNo}/{postNo}")
 	   public String main(@PathVariable("id") String id, 
 			   			  @PathVariable("categoryNo") long categoryNo, 
 			   			@PathVariable("postNo") long postNo, Model model) {
@@ -85,17 +82,23 @@ public class BlogController {
 	   }*/
 	
 	@RequestMapping({"","/{pathNo1}","/{pathNo1}/{pathNo2}"})
-	   public String main(@PathVariable("id") String id,
-			   @PathVariable("categoryNo") Optional<Long> pathNo1, 
-	   			@PathVariable("postNo") Optional<Long> pathNo2, Model model) {
+	   public String main(
+			   @PathVariable(value = "id") String id,
+			   @PathVariable(value = "pathNo1") Optional<Long> pathNo1, 
+	   			@PathVariable(value = "pathNo2") Optional<Long> pathNo2, Model model) {
 		Long categoryNo=0L;
 		Long postNo=0L;
 		
+		if(pathNo1.isPresent()) {
+			categoryNo = pathNo1.get();
+		}else{
+			categoryNo = categoryService.getMinCategoryNo(id);
+		}
+		
 		if(pathNo2.isPresent()) {
-			categoryNo = pathNo1.get();
 			postNo = pathNo2.get();
-		}else if(pathNo1.isPresent()) {
-			categoryNo = pathNo1.get();
+		}else{
+			postNo = postService.getMaxPostNo(categoryNo);
 		}
 		
 	    Map<String, Object> map = new HashMap<>();
@@ -105,7 +108,8 @@ public class BlogController {
 		model.addAttribute("blog", map);
 		model.addAttribute("catList",catList);
 		model.addAttribute("postVo", postVo);
-	      return "/blog/blog-main";
+		
+			return "blog/blog-main";
 	   }
 	
 	@Auth

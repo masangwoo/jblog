@@ -39,5 +39,8 @@ public class CategoryRepository {
 		List<CategoryVo> list = sqlSession.selectList("category.findList",id);
 		return list;
 	}
+	public Long getMinNo(String id) {
+		return sqlSession.selectOne("category.getminno", id);
+	}
 
 }

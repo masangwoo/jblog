@@ -24,5 +24,10 @@ public class PostService {
 		return postRepository.write(vo);
 	}
 
+	public Long getMaxPostNo(long no) {
+		
+		return postRepository.getMaxNo(no);
+	}
+
 
 }
