@@ -41,7 +41,7 @@ public class BlogInterceptor extends HandlerInterceptorAdapter {
 				session = request.getSession();
 				UserVo uservo = (UserVo)session.getAttribute("authUser");
 				if(!uservo.getId().equals(user_id)) {
-					response.sendRedirect(request.getContextPath() + "/jblog/blog" + user_id);
+					response.sendRedirect(request.getContextPath() + "/blog" + user_id);
 					return false;
 				}
 			}

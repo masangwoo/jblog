@@ -3,6 +3,7 @@ package com.poscoict.jblog.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.ServletContext;
 
@@ -27,7 +28,7 @@ import com.poscoict.jblog.vo.PostVo;
 import com.poscoict.jblog.vo.UserVo;
 
 @Controller
-@RequestMapping("/blog")
+@RequestMapping("/blog/{id:(?!assets).*}")
 public class BlogController {
 	@Autowired
 	private BlogService blogService;
@@ -41,7 +42,7 @@ public class BlogController {
 	@Autowired
 	private ServletContext context;
 	
-	@RequestMapping("/{id}")
+	/*@RequestMapping("/{id}")
 	   public String main(@PathVariable("id") String id, Model model) {
 	    Map<String, Object> map = new HashMap<>();
 	    map = blogService.getBlogList(id,1,1);
@@ -81,16 +82,43 @@ public class BlogController {
 		model.addAttribute("catList",catList);
 		model.addAttribute("postVo", postVo);
 	      return "/blog/blog-main";
+	   }*/
+	
+	@RequestMapping({"","/{pathNo1}","/{pathNo1}/{pathNo2}"})
+	   public String main(@PathVariable("id") String id,
+			   @PathVariable("categoryNo") Optional<Long> pathNo1, 
+	   			@PathVariable("postNo") Optional<Long> pathNo2, Model model) {
+		Long categoryNo=0L;
+		Long postNo=0L;
+		
+		if(pathNo2.isPresent()) {
+			categoryNo = pathNo1.get();
+			postNo = pathNo2.get();
+		}else if(pathNo1.isPresent()) {
+			categoryNo = pathNo1.get();
+		}
+		
+	    Map<String, Object> map = new HashMap<>();
+	    map = blogService.getBlogList(id,categoryNo,postNo);
+	    List<CategoryVo> catList = categoryService.findList(id);
+	    PostVo postVo = postService.view(postNo);
+		model.addAttribute("blog", map);
+		model.addAttribute("catList",catList);
+		model.addAttribute("postVo", postVo);
+	      return "/blog/blog-main";
 	   }
+	
 	@Auth
-	@RequestMapping("/{id}/admin")
+	@RequestMapping("/admin")
 	   public String adminBasic(@PathVariable("id") String id, 
+			   @AuthUser UserVo authUser,
 			   			 Model model) {
-
+		
 	      return "/blog/blog-admin-basic";
 	   }
 	
-	@RequestMapping(value="/{id}/admin/update", method = RequestMethod.POST)
+	@Auth
+	@RequestMapping(value="/admin/update", method = RequestMethod.POST)
 	public String mainUpdate(@RequestParam(value="upload-file") MultipartFile multipartFile,
 			@PathVariable("id") String id,
 			BlogVo vo,
@@ -105,7 +133,7 @@ public class BlogController {
 	
 	
 	@Auth
-	@RequestMapping("/{id}/admin/category")
+	@RequestMapping("/admin/category")
 	   public String adminCategory(@PathVariable("id") String id, 
 			   			 Model model) {
 		Map<String, Object> map = new HashMap<>();
@@ -115,7 +143,7 @@ public class BlogController {
 	   }
 	
 	@Auth
-	@RequestMapping(value="/{id}/category/add", method=RequestMethod.POST)
+	@RequestMapping(value="/category/add", method=RequestMethod.POST)
 	   public String addCategory(@PathVariable("id") String id, String name, String desc) {
 		
 		categoryService.insertCategory(name, desc, id);
@@ -124,14 +152,14 @@ public class BlogController {
 	   }
 	
 	@Auth
-	@RequestMapping(value="/{id}/category/delete/{categoryno}",method=RequestMethod.GET)
+	@RequestMapping(value="/category/delete/{categoryno}",method=RequestMethod.GET)
 	public String category(@PathVariable(value = "categoryno") Long categoryno, @AuthUser UserVo uservo) {
 		categoryService.delete(categoryno);
 		return "redirect:/blog/"+ uservo.getId() + "/admin/category";
 	}
 	
 	@Auth
-	@RequestMapping("/{id}/admin/write")
+	@RequestMapping("/admin/write")
 	   public String adminWrite(@PathVariable("id") String id, 
 			   			 Model model) {
 		Map<String, Object> map = new HashMap<>();
@@ -141,7 +169,7 @@ public class BlogController {
 	   }
 	
 	@Auth
-	@RequestMapping(value="/{id}/admin/write",method=RequestMethod.POST)
+	@RequestMapping(value="/admin/write",method=RequestMethod.POST)
 	public String write(@AuthUser UserVo uservo, PostVo postvo, CategoryVo categoryvo) {
 		postService.write(postvo);
 		return "redirect:/blog/"+ uservo.getId();
