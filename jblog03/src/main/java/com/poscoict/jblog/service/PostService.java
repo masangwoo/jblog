@@ -16,7 +16,7 @@ public class PostService {
 	@Autowired
 	private PostRepository postRepository;
 	
-	public PostVo view(long no){
+	public PostVo view(Long no){
 		return postRepository.view(no);
 	}
 	
@@ -24,7 +24,11 @@ public class PostService {
 		return postRepository.write(vo);
 	}
 
-	public Long getMaxPostNo(long no) {
+	public List<PostVo> getPostList(Long categoryNo){
+		return postRepository.getPostList(categoryNo);
+	}
+	
+	public Long getMaxPostNo(Long no) {
 		
 		return postRepository.getMaxNo(no);
 	}

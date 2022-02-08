@@ -6,7 +6,11 @@
 		<![CDATA[select title as postTitle, contents from post where no = ${no}]]>
 	</select>
 
-<select id="write" parameterType="postvo">
+	<select id="getpostlist" parameterType="long" resultType="postvo">
+			<![CDATA[ select title as postTitle, contents, date_format(reg_date, '%Y/%m/%d %H:%i:%s') as regDate from post where category_no = #{categoryNo} ]]>
+	</select>
+
+	<select id="write" parameterType="postvo">
 			<![CDATA[ insert into post values(null, #{postTitle}, #{contents}, now(), #{categoryNo}) ]]>
 	</select>
 	

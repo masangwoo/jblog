@@ -25,13 +25,9 @@ public class BlogService {
 		return blogRepository.select(user_id);
 	}
 	
-	public Map<String, Object> getBlogList(String id, long category, long post) {
-	      Map<String, Object> map = new HashMap<>();
-	      List<BlogVo> list = null;
-	      list =  blogRepository.findAll(id, category, post);
-	      map.put("list", list);
-
-	      return map;
+	public BlogVo getBlogList(String id) {
+	     	BlogVo BlogVo= blogRepository.select(id);
+	      return BlogVo;
 	   } 
 	
 	public Map<String, Object> getCategoryList(String id) {

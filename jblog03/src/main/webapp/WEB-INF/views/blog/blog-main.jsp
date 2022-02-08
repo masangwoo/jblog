@@ -30,8 +30,8 @@
 					<p>
 				</div>
 				<ul class="blog-list">
-					<c:forEach items="${blog.list}" var = "vo" varStatus = "status">
-                       <li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/${vo.categoryNo}/${vo.postNo}">${vo.postTitle}</a> <span>${vo.regDate}</span>	</li>
+					<c:forEach items="${postList}" var = "vo" varStatus = "status">
+                       <li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/${vo.categoryNo}/${vo.no}">${vo.postTitle}</a> <span>${vo.regDate}</span>	</li>
             		</c:forEach>
 				</ul>
 			</div>

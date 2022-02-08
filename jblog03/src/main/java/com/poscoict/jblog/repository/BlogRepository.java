@@ -22,7 +22,7 @@ public class BlogRepository {
 		return sqlSession.insert("blog.insert", vo) == 1;
 	}
 	
-	public List<BlogVo> findAll(String id, long category, long post) {
+	/*public List<BlogVo> findAll(String id, long category, long post) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		map.put("category", category);
@@ -30,7 +30,8 @@ public class BlogRepository {
 
 		List<BlogVo> list = sqlSession.selectList("blog.findAll",map);
 		return list;
-	}
+	}*/
+
 	public List<BlogVo> findCategory(String id) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);

@@ -102,11 +102,17 @@ public class BlogController {
 		}
 		
 	    Map<String, Object> map = new HashMap<>();
-	    map = blogService.getBlogList(id,categoryNo,postNo);
+	    BlogVo blogvo = blogService.Select(id);
 	    List<CategoryVo> catList = categoryService.findList(id);
+	    List<PostVo> postList = postService.getPostList(categoryNo);
+	    
+	    
+	    System.out.println(categoryNo + "gdgdgdgdgdgdgd");
+	    System.out.println(postNo + "gdgdgdgdgdgdgd");
 	    PostVo postVo = postService.view(postNo);
-		model.addAttribute("blog", map);
+		model.addAttribute("bvo", blogvo);
 		model.addAttribute("catList",catList);
+		model.addAttribute("postList",postList);
 		model.addAttribute("postVo", postVo);
 		
 			return "blog/blog-main";
