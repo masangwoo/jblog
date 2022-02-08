@@ -101,20 +101,24 @@ public class BlogController {
 			postNo = postService.getMaxPostNo(categoryNo);
 		}
 		
-	    Map<String, Object> map = new HashMap<>();
 	    BlogVo blogvo = blogService.Select(id);
 	    List<CategoryVo> catList = categoryService.findList(id);
 	    List<PostVo> postList = postService.getPostList(categoryNo);
 	    
+	    PostVo postVo = null;
 	    
-	    System.out.println(categoryNo + "gdgdgdgdgdgdgd");
-	    System.out.println(postNo + "gdgdgdgdgdgdgd");
-	    PostVo postVo = postService.view(postNo);
+	    for(int i = 0; i < postList.size() ; i++ ) {
+	    	if(postList.get(i).getNo() == postNo) {
+	    		postVo = postList.get(i);
+	    	}
+	    }
+	   // postVo = postService.view(postNo)
+
+	    
 		model.addAttribute("bvo", blogvo);
 		model.addAttribute("catList",catList);
 		model.addAttribute("postList",postList);
 		model.addAttribute("postVo", postVo);
-		
 			return "blog/blog-main";
 	   }
 	

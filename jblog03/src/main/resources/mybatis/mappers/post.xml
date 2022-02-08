@@ -7,7 +7,7 @@
 	</select>
 
 	<select id="getpostlist" parameterType="long" resultType="postvo">
-			<![CDATA[ select title as postTitle, contents, date_format(reg_date, '%Y/%m/%d %H:%i:%s') as regDate from post where category_no = #{categoryNo} ]]>
+			<![CDATA[ select title as postTitle, contents, category_no as categoryNo, no, date_format(reg_date, '%Y/%m/%d %H:%i:%s') as regDate from post where category_no = #{categoryNo} ]]>
 	</select>
 
 	<select id="write" parameterType="postvo">
