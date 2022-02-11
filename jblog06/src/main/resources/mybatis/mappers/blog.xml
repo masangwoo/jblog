@@ -4,7 +4,7 @@
 <mapper namespace="blog">
 	
 	<insert id="insert" parameterType="uservo">
-		<![CDATA[ insert into blog values(#{id}, '${name} 님의 블로그 입니다.', '/assets/images/spring-logo.jpg')]]>
+		<![CDATA[ insert into blog values(#{id}, '${name} 님의 블로그 입니다.', '/assets/logo/spring-logo.jpg')]]>
 	</insert>
 	
 	<!--<select id="findAll" parameterType="map" resultType="blogvo">
