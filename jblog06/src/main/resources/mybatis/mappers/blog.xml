@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blog">
+	
+	<insert id="insert" parameterType="uservo">
+		<![CDATA[ insert into blog values(#{id}, '${name} 님의 블로그 입니다.', '/assets/images/spring-logo.jpg')]]>
+	</insert>
+	
+	<!--<select id="findAll" parameterType="map" resultType="blogvo">
+		<![CDATA[
+		select a.user_id as userId, a.title, a.logo, b.no as categoryNo, 
+		b.name as categoryName, b.description, 
+		date_format(c.reg_date, '%Y/%m/%d %H:%i:%s') as regDate, c.no as postNo,  
+		c.title as postTitle, c.contents from  blog a, 
+		category b, post c where a.user_id=b.blog_id and b.no= 
+		c.category_no  and a.user_id=#{id} and b.no=#{category} order by c.reg_date desc
+		]]>
+	</select>-->
+	 
+	  <select id="findAll" parameterType="map" resultType="blogvo">
+		<![CDATA[
+		select * from  blog where user_id=#{user_id}
+		]]>
+	</select> 
+	
+	<select id="select" parameterType="string" resultType="blogvo">
+		<![CDATA[
+		select user_id as userId, title, logo from  blog where user_id = #{user_id}
+		]]>
+	</select>
+	
+	
+	
+		<select id="findCategory" parameterType="map" resultType="blogvo">
+		<![CDATA[
+			  select a.blog_id as blogID, a.no as categoryNo, a.name as categoryName, a.description,
+			   count(b.category_no) as postCount from category a left join post b on a.no= b.category_no where blog_id=#{id} group by a.no order by a.no desc
+		]]>
+	</select>
+
+	<update id="update" parameterType="blogvo">
+	<choose>
+			<when test = "logo == null || '' == logo">
+				<![CDATA[
+					update blog set title = #{title} where  user_id = #{userId} 
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+					update blog set title = #{title}, logo = #{logo} where  user_id = #{userId}
+				]]>
+			</otherwise>
+		</choose>
+	</update>
+
+</mapper>
