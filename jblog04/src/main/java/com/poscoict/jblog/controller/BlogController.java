@@ -28,7 +28,7 @@ import com.poscoict.jblog.vo.PostVo;
 import com.poscoict.jblog.vo.UserVo;
 
 @Controller
-@RequestMapping("/blog/{id:(?!assets).*}")
+@RequestMapping("/blog/{id:(?!assets|images).*}")
 public class BlogController {
 	@Autowired
 	private BlogService blogService;

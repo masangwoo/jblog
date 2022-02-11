@@ -55,7 +55,7 @@
 	</bean>
 	
 	<!-- mvc url-resource mapping -->
-	<mvc:resources  mapping="/assets/images/**" location="file:/upload_images/"/>
+	<mvc:resources  mapping="/assets/logo/**" location="file:/upload_images/"/>
 
 	<!-- 멀티파트 리졸버 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

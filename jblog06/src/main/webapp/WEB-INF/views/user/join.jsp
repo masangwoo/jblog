@@ -37,7 +37,7 @@
 			<input id="btn-checkemail" type="button" value="id 중복체크">
 			<img id="img-checkemail" style="display: none;" src="${pageContext.request.contextPath}/assets/images/check.png">
 			<p style="text-align:left; padding-left:0; color:#f00">
-				<form:errors path="password" />
+				<form:errors path="name" />
 			</p>	
 			
 			<label class="block-label" for="password">패스워드</label>
