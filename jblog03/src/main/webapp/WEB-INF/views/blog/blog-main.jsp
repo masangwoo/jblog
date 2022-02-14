@@ -17,7 +17,8 @@
 				<div class="blog-content">
 					<h4>${postVo.postTitle}</h4>
 					<p>
-						${postVo.contents}
+						<c:set var="cmt" value="${fn:replace(postVo.contents, newline, '<br/>') }" />
+						<c:out value="${cmt}" escapeXml="false"/>
 					<p>
 				</div>
 				<ul class="blog-list">
